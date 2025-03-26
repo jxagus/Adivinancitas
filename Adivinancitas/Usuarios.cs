@@ -68,18 +68,23 @@ namespace Adivinancitas
                     }
                 }
 
-                if (string.IsNullOrWhiteSpace(tbPlayerUno.Text) && string.IsNullOrWhiteSpace(tbPlayer2.Text)) {
-                    MessageBox.Show("Primera parte bien");
+                if (!string.IsNullOrWhiteSpace(tbPlayerUno.Text) && !string.IsNullOrWhiteSpace(tbPlayer2.Text))
+                {
                     if (cb20.Checked) {
-                        MessageBox.Show("Segunda parte bien");
+                        MessageBox.Show("¡Bienvenido al juego!");
+
+                        // Paso los nombres para Juego.Cs
+                        Juego ventanaJuego = new Juego(tbPlayerUno.Text, tbPlayer2.Text);
+
+                        // Mostrar la ventana del juego
+                        ventanaJuego.Show();
+
+                        // Ocultar la ventana actual (suponiendo que es el formulario de inicio)
+                        this.Hide();
                     }
-                    //Juego juego = new Juego();
-                    //this.Hide();
-                    //juego.Show();  // Mostrar Form2
+
                 }
-                MessageBox.Show("bienvenido al juego");
-                Juego juego = new Juego();
-                juego.Show();
+
 
             }
             catch (InvalidOperationException ex)
@@ -87,5 +92,11 @@ namespace Adivinancitas
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
          }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+
+        }
     }
 }
