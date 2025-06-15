@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,11 +7,11 @@ using Newtonsoft.Json;
 
 namespace Adivinancitas
 {
-    public partial class Form1 : Form
+    public partial class Preguntas : Form
     {
         private string respuestaCorrecta;
 
-        public Form1()
+        public Preguntas()
         {
             InitializeComponent();
         }
@@ -36,11 +35,11 @@ namespace Adivinancitas
             request.AddHeader("Content-Type", "application/json");
             var body = new
             {
-                query = "Genera una pregunta difícil sobre la cultura argentina con tres opciones (A, B, C), e indica cuál es la correcta en un formato claro. Ejemplo:\n" +
-                        "Pregunta: ¿Cuál es la bebida nacional de Argentina?\n" +
-                        "A) Mate\n" +
-                        "B) Café\n" +
-                        "C) Té\n" +
+                query = "Genera una pregunta bandas de rock alternativo de los estados unidos de america (A, B, C), e indica cuál es la correcta en un formato claro. Ejemplo:\n" +
+                        "Pregunta: ¿Que banda vino primero a la argentina?\n" +
+                        "A) Slipknot\n" +
+                        "B) Avenged sevendford\n" +
+                        "C) Linkin park\n" +
                         "Respuesta correcta: A",
                 chat_history = new object[] { },
                 model = "command-xlarge-nightly",
@@ -114,7 +113,7 @@ namespace Adivinancitas
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
-            CargarPregunta(); // Vuelve a cargar una nueva pregunta
+            _ = CargarPregunta(); // Vuelve a cargar una nueva pregunta
             lblEspere.Text = "Espere un momento";
 
         }

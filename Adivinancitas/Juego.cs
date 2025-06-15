@@ -4,17 +4,16 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-
 namespace Adivinancitas
 {
     public partial class Juego : Form
     {
-        int tamañoColumnasFilas = 4; // 4x4 = 16 cartas
+        int tamañoColumnasFilas = 4;
         int Movimientos = 0;
         int cantidadDeCartasVolteadas = 0;
         string jugador1, jugador2;
         int puntajeJugador1 = 0, puntajeJugador2 = 0;
-        int turnoJugador = 1; // 1 para el jugador 1, 2 para el jugador 2
+        int turnoJugador = 1;
         List<string> listaCartas;
         List<PictureBox> CartasSeleccionadas = new List<PictureBox>();
         PictureBox CartaTemporal1, CartaTemporal2;
@@ -36,52 +35,40 @@ namespace Adivinancitas
         {
             if (CartaTemporal1.Tag.ToString() == CartaTemporal2.Tag.ToString())
             {
-                // Asignar puntos al jugador actual
                 if (turnoJugador == 1)
                 {
                     puntajeJugador1 += 10;
                     lblJugadorUno.Text = jugador1 + ": " + puntajeJugador1 + " pts";
-
                 }
                 else
                 {
                     puntajeJugador2 += 10;
                     lblJugadorDos.Text = jugador2 + ": " + puntajeJugador2 + " pts";
-
-
                 }
 
-                // Deshabilitar las cartas emparejadas
                 CartaTemporal1.Enabled = false;
                 CartaTemporal2.Enabled = false;
-
                 cantidadDeCartasVolteadas++;
 
-                // Verificar si el juego ha terminado
-                if (cantidadDeCartasVolteadas == 8 && puntajeJugador2 == puntajeJugador1)
-                {
-                    MessageBox.Show("EMPATE!!!" + Math.Max(puntajeJugador1, puntajeJugador2));
-                }
                 if (cantidadDeCartasVolteadas == 8)
                 {
-                    if (puntajeJugador1 > puntajeJugador2 || puntajeJugador1 < puntajeJugador2)
+                    if (puntajeJugador1 == puntajeJugador2)
+                    {
+                        MessageBox.Show("EMPATE!!! " + puntajeJugador1 + " pts");
+                    }
+                    else
                     {
                         string ganador = puntajeJugador1 > puntajeJugador2 ? jugador1 : jugador2;
                         MessageBox.Show("¡Ganó " + ganador + "! Puntos: " + Math.Max(puntajeJugador1, puntajeJugador2));
-
                     }
                 }
 
-
-                // Limpiar selección
                 CartasSeleccionadas.Clear();
                 CartaTemporal1 = null;
-                CartaTemporal2 = null; 
-
+                CartaTemporal2 = null;
             }
             else
             {
-                // Si no son iguales, iniciar temporizador para voltearlas
                 timerVolteo.Start();
                 CambiarTurno();
             }
@@ -89,8 +76,20 @@ namespace Adivinancitas
 
         private void CambiarTurno()
         {
-            turnoJugador = (turnoJugador == 1) ? 2 : 1; //Si cumple el if es 2 y si no es 1. Con esto pasamos el turno de uno a otro
-            //lblRecord.ResetText();
+            turnoJugador = (turnoJugador == 1) ? 2 : 1;
+            ActualizarTurno();
+        }
+
+        private void ActualizarTurno()
+        {
+            if (turnoJugador == 1)
+            {
+                lblTurno.Text = "Es turno de: " + jugador1;
+            }
+            else
+            {
+                lblTurno.Text = "Es turno de: " + jugador2;
+            }
         }
 
         private void btnCarta_Click(object sender, EventArgs e)
@@ -141,28 +140,24 @@ namespace Adivinancitas
             return obj as Bitmap ?? Properties.Resources.Verso;
         }
 
-
         private void btnReinicio_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
-                "Antes de reiniciar, ¿Quéres cambiar los Nombres?", 
-                "Pregunta",                               
-                MessageBoxButtons.YesNo,                  // Los botones que se muestran (Yes y No)
-                MessageBoxIcon.Question                   // El icono de pregunta
+                "Antes de reiniciar, ¿Querés cambiar los nombres?",
+                "Pregunta",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
             );
             if (result == DialogResult.Yes)
             {
-                MessageBox.Show("Has seleccionado 'Sí'.");
-                // Mostrar la ventana del juego
                 Usuarios ventanUsuarios = new Usuarios();
                 ventanUsuarios.Show();
                 this.Hide();
             }
-            else if (result == DialogResult.No)
+            else
             {
                 iniciarJuego();
             }
-
         }
 
         private void Juego_Load(object sender, EventArgs e)
@@ -176,6 +171,7 @@ namespace Adivinancitas
             cantidadDeCartasVolteadas = 0;
             Movimientos = 0;
             turnoJugador = 1;
+            ActualizarTurno();
 
             PanelJuego.Controls.Clear();
             CartasSeleccionadas.Clear();
@@ -230,10 +226,9 @@ namespace Adivinancitas
 
             PanelJuego.Controls.Add(tablePanel);
         }
+
         private void lblRecord_Click(object sender, EventArgs e)
         {
-
         }
-
     }
 }

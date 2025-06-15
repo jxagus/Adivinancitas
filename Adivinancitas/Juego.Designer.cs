@@ -91,9 +91,9 @@ namespace Adivinancitas
             this.lblTurno.AutoSize = true;
             this.lblTurno.Location = new System.Drawing.Point(594, 53);
             this.lblTurno.Name = "lblTurno";
-            this.lblTurno.Size = new System.Drawing.Size(56, 13);
+            this.lblTurno.Size = new System.Drawing.Size(81, 13);
             this.lblTurno.TabIndex = 5;
-            this.lblTurno.Text = "Turno de :";
+            this.lblTurno.Text = "Turno de Spect";
             // 
             // Juego
             // 
