@@ -9,11 +9,11 @@ Este proyecto es una juego de escritorio que todos conocen o escucharon en su in
   <tr>
     <td align="center">
       <img src="https://github.com/jxagus/Adivinancitas/blob/master/Adivinancitas/Img/screamshots/adivinancitas.png" width="300"/><br/>
-      <b>Juego</b>
+      <b>Jugadores</b>
     </td>
     <td align="center">
-      <img src="https://github.com/jxagus/Adivinancitas/blob/master/Adivinancitas/Img/screamshots/usuarios.png" width="300"/><br/>
-      <b>Usuarios</b>
+      <img src="https://github.com/jxagus/Adivinancitas/blob/master/Adivinancitas/Img/screamshots/game.png" width="300"/><br/>
+      <b>Juego</b>
     </td>
     
 </table>
