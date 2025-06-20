@@ -14,6 +14,8 @@ namespace Adivinancitas
 {
     public partial class Usuarios: Form
     {
+        public string NombreJugador1 { get; private set; }
+        public string NombreJugador2 { get; private set; }
         public Usuarios()
         {
             InitializeComponent();
@@ -70,20 +72,19 @@ namespace Adivinancitas
 
                 if (!string.IsNullOrWhiteSpace(tbPlayerUno.Text) && !string.IsNullOrWhiteSpace(tbPlayer2.Text))
                 {
-                    if (cb20.Checked) {
+                    if (cb20.Checked)
+                    {
                         MessageBox.Show("¡Bienvenido al juego!");
 
-                        // Paso los nombres para Juego.Cs
-                        Juego ventanaJuego = new Juego(tbPlayerUno.Text, tbPlayer2.Text);
+                        // Guardamos los nombres en las propiedades públicas
+                        NombreJugador1 = tbPlayerUno.Text;
+                        NombreJugador2 = tbPlayer2.Text;
 
-                        // Mostrar la ventana del juego
-                        ventanaJuego.Show();
-
-                        // Ocultar la ventana actual (suponiendo que es el formulario de inicio)
-                        this.Hide();
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
-
                 }
+
 
 
             }
