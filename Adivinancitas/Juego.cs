@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,9 +9,7 @@ namespace Adivinancitas
 {
     public partial class Juego : Form
     {
-        int tamañoColumnasFilas = 4;
         int Movimientos = 0;
-        int cantidadDeCartasVolteadas = 0;
         string jugador1, jugador2;
         int puntajeJugador1 = 0, puntajeJugador2 = 0;
         int turnoJugador = 1;
@@ -19,7 +18,9 @@ namespace Adivinancitas
         PictureBox CartaTemporal1, CartaTemporal2;
         Timer timerVolteo = new Timer();
 
-        public Juego(string tbPlayerUno, string tbPlayer2)
+        private bool modo40Cartas;
+
+        public Juego(string tbPlayerUno, string tbPlayer2, bool usar40Cartas)
         {
             InitializeComponent();
             timerVolteo.Interval = 1000;
@@ -27,6 +28,8 @@ namespace Adivinancitas
 
             jugador1 = tbPlayerUno;
             jugador2 = tbPlayer2;
+            modo40Cartas = usar40Cartas;
+
             lblJugadorUno.Text = jugador1 + ": 0 pts";
             lblJugadorDos.Text = jugador2 + ": 0 pts";
         }
@@ -48,29 +51,48 @@ namespace Adivinancitas
 
                 CartaTemporal1.Enabled = false;
                 CartaTemporal2.Enabled = false;
-                cantidadDeCartasVolteadas++;
-
-                if (cantidadDeCartasVolteadas == 8)
-                {
-                    if (puntajeJugador1 == puntajeJugador2)
-                    {
-                        MessageBox.Show("EMPATE!!! " + puntajeJugador1 + " pts");
-                    }
-                    else
-                    {
-                        string ganador = puntajeJugador1 > puntajeJugador2 ? jugador1 : jugador2;
-                        MessageBox.Show("¡Ganó " + ganador + "! Puntos: " + Math.Max(puntajeJugador1, puntajeJugador2));
-                    }
-                }
 
                 CartasSeleccionadas.Clear();
                 CartaTemporal1 = null;
                 CartaTemporal2 = null;
+
+                VerificarFinDelJuego();
             }
             else
             {
                 timerVolteo.Start();
                 CambiarTurno();
+            }
+        }
+
+        private void VerificarFinDelJuego()
+        {
+            var tablePanel = PanelJuego.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+            if (tablePanel != null)
+            {
+                bool juegoTerminado = true;
+                foreach (Control c in tablePanel.Controls)
+                {
+                    if (c is PictureBox pb && pb.Enabled)
+                    {
+                        juegoTerminado = false;
+                        break;
+                    }
+                }
+
+                if (juegoTerminado)
+                {
+                    if (puntajeJugador1 == puntajeJugador2)
+                    {
+                        MessageBox.Show("¡EMPATE! Ambos terminaron con " + puntajeJugador1 + " pts");
+                    }
+                    else
+                    {
+                        string ganador = puntajeJugador1 > puntajeJugador2 ? jugador1 : jugador2;
+                        int maxPuntaje = Math.Max(puntajeJugador1, puntajeJugador2);
+                        MessageBox.Show("¡Ganó " + ganador + "! Puntos: " + maxPuntaje);
+                    }
+                }
             }
         }
 
@@ -96,11 +118,12 @@ namespace Adivinancitas
         {
             if (CartasSeleccionadas.Count >= 2) return;
 
-            Movimientos++;
-            lblRecord.Text = Movimientos.ToString();
             var CartaSeleccionada = (PictureBox)sender;
 
-            if (!CartaSeleccionada.Enabled) return;
+            if (!CartaSeleccionada.Enabled || CartasSeleccionadas.Contains(CartaSeleccionada)) return;
+
+            Movimientos++;
+            lblRecord.Text = Movimientos.ToString();
 
             string nombreRecurso = CartaSeleccionada.Tag.ToString();
             Bitmap imagenCarta = RecuperarImagen(nombreRecurso);
@@ -136,8 +159,24 @@ namespace Adivinancitas
 
         public Bitmap RecuperarImagen(string nombreRecurso)
         {
-            object obj = Properties.Resources.ResourceManager.GetObject(nombreRecurso);
-            return obj as Bitmap ?? Properties.Resources.Verso;
+            if (modo40Cartas)
+            {
+                string rutaImg40 = Path.Combine(Application.StartupPath, "Img40");
+                string rutaPng = Path.Combine(rutaImg40, nombreRecurso + ".png");
+                string rutaJpg = Path.Combine(rutaImg40, nombreRecurso + ".jpg");
+                string rutaJpeg = Path.Combine(rutaImg40, nombreRecurso + ".jpeg");
+
+                if (File.Exists(rutaPng)) return new Bitmap(rutaPng);
+                if (File.Exists(rutaJpg)) return new Bitmap(rutaJpg);
+                if (File.Exists(rutaJpeg)) return new Bitmap(rutaJpeg);
+
+                return Properties.Resources.Verso;
+            }
+            else
+            {
+                object obj = Properties.Resources.ResourceManager.GetObject(nombreRecurso);
+                return obj as Bitmap ?? Properties.Resources.Verso;
+            }
         }
 
         private void btnReinicio_Click(object sender, EventArgs e)
@@ -168,46 +207,69 @@ namespace Adivinancitas
         public void iniciarJuego()
         {
             lblRecord.Text = "0";
-            cantidadDeCartasVolteadas = 0;
             Movimientos = 0;
+            puntajeJugador1 = 0;
+            puntajeJugador2 = 0;
+            lblJugadorUno.Text = jugador1 + ": 0 pts";
+            lblJugadorDos.Text = jugador2 + ": 0 pts";
+
             turnoJugador = 1;
             ActualizarTurno();
 
             PanelJuego.Controls.Clear();
             CartasSeleccionadas.Clear();
 
-            var nombresCartas = new List<string>
-            {
-                "Diego", "Gatos", "Hamburguesa", "Hippo",
-                "Limon", "Perro", "Rosa", "Roshi"
-            };
-
             listaCartas = new List<string>();
+            List<string> nombresCartas;
+
+            int columnas;
+
+            if (modo40Cartas)
+            {
+                string rutaImg40 = Path.Combine(Application.StartupPath, "img40");
+                var extensiones = new[] { "*.png", "*.jpg", "*.jpeg" };
+                var archivos = extensiones.SelectMany(ext => Directory.GetFiles(rutaImg40, ext)).ToArray();
+
+                nombresCartas = archivos.Select(Path.GetFileNameWithoutExtension).ToList();
+                // Toma todas las imágenes de la carpeta (las 25) sin cortarlas en 40
+                columnas = 10; // 10 columnas x 5 filas = 50 cartas en total
+            }
+            else
+            {
+                // 10 nombres distintos para formar exactamente 20 cartas (10 pares)
+                nombresCartas = new List<string>
+        {"Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Extra"};
+                columnas = 5; // 5 columnas x 4 filas = 20 cartas
+            }
+
+            // Duplicamos cada nombre para crear las parejas
             foreach (var nombre in nombresCartas)
             {
                 listaCartas.Add(nombre);
                 listaCartas.Add(nombre);
             }
 
-            Random NumeroAleatorio = new Random();
-            var cartasRevueltas = listaCartas.OrderBy(item => NumeroAleatorio.Next()).ToList();
+            var cartasRevueltas = listaCartas.OrderBy(x => Guid.NewGuid()).ToList();
+
+            int totalCartas = listaCartas.Count;
+            int filas = (int)Math.Ceiling((double)totalCartas / columnas);
 
             var tablePanel = new TableLayoutPanel
             {
-                RowCount = tamañoColumnasFilas,
-                ColumnCount = tamañoColumnasFilas,
+                RowCount = filas,
+                ColumnCount = columnas,
                 Dock = DockStyle.Fill
             };
 
-            for (int i = 0; i < tamañoColumnasFilas; i++)
-            {
-                tablePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
-                tablePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25));
-            }
+            for (int i = 0; i < columnas; i++)
+                tablePanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / columnas));
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < filas; i++)
+                tablePanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / filas));
+
+            for (int i = 0; i < totalCartas; i++)
             {
-                var CartasJuego = new PictureBox
+                var Carta = new PictureBox
                 {
                     Name = "Carta_" + i,
                     Dock = DockStyle.Fill,
@@ -218,15 +280,15 @@ namespace Adivinancitas
                     Enabled = true
                 };
 
-                CartasJuego.Click += btnCarta_Click;
-                int row = i / 4;
-                int col = i % 4;
-                tablePanel.Controls.Add(CartasJuego, col, row);
+                Carta.Click += btnCarta_Click;
+
+                int row = i / columnas;
+                int col = i % columnas;
+                tablePanel.Controls.Add(Carta, col, row);
             }
 
             PanelJuego.Controls.Add(tablePanel);
         }
-
         private void lblRecord_Click(object sender, EventArgs e)
         {
         }

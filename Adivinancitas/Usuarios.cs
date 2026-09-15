@@ -16,6 +16,8 @@ namespace Adivinancitas
     {
         public string NombreJugador1 { get; private set; }
         public string NombreJugador2 { get; private set; }
+        public bool Usa40Cartas { get; private set; }
+
         public Usuarios()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace Adivinancitas
         {
             lblRed.Visible = false;
             lblRed2.Visible = false;
-            pbUsuario.Image = Image.FromFile("C:/Users/agust/source/repos/Adivinancitas/Adivinancitas/Img/Verso.png");
+            pbUsuario.Image = Image.FromFile("C:/Users/agust/source/repos/Adivinancitas/Adivinancitas/Img20/Verso.png");
             try
             {
 
@@ -44,7 +46,7 @@ namespace Adivinancitas
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            try //Comprobamos que onda
+            try 
             {
                 if (string.IsNullOrWhiteSpace(tbPlayerUno.Text))
                 {
@@ -56,37 +58,23 @@ namespace Adivinancitas
                     lblRed2.Visible = true;
                     MessageBox.Show("El campo de texto no puede estar vacío.");
                 }
-                if (!cb30.Checked && !cb20.Checked)
+                if (!cb40.Checked && !cb20.Checked)
                 {
-                    MessageBox.Show("Elija una opcion, 20 o 30 cartas?.");
-                }
-                else
-                {
-
-                    if (!cb20.Checked && cb30.Checked)
-                    {
-                        throw new InvalidOperationException("Aun no esta disponible, eliga otra opcion");
-
-                    }
+                    MessageBox.Show("Elija una opcion, 20 o 40 cartas?.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(tbPlayerUno.Text) && !string.IsNullOrWhiteSpace(tbPlayer2.Text))
                 {
-                    if (cb20.Checked)
+                    if (cb20.Checked || cb40.Checked)
                     {
-                        MessageBox.Show("¡Bienvenido al juego!");
-
-                        // Guardamos los nombres en las propiedades públicas
                         NombreJugador1 = tbPlayerUno.Text;
                         NombreJugador2 = tbPlayer2.Text;
+                        Usa40Cartas = cb40.Checked;
 
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                 }
-
-
-
             }
             catch (InvalidOperationException ex)
             {

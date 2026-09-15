@@ -10,9 +10,8 @@
 
 namespace Adivinancitas.Properties {
     using System;
-    using System.Drawing;
-
-
+    
+    
     /// <summary>
     ///   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     /// </summary>
@@ -32,9 +31,7 @@ namespace Adivinancitas.Properties {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-
-        public static Image Girada { get; internal set; }
-
+        
         /// <summary>
         ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
         /// </summary>
@@ -109,6 +106,16 @@ namespace Adivinancitas.Properties {
         internal static System.Drawing.Bitmap Limon {
             get {
                 object obj = ResourceManager.GetObject("Limon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PelotaBasquet {
+            get {
+                object obj = ResourceManager.GetObject("PelotaBasquet", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

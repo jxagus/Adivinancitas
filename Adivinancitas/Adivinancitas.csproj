@@ -59,7 +59,10 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -112,12 +115,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Preguntas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Preguntas.Designer.cs">
-      <DependentUpon>Preguntas.cs</DependentUpon>
-    </Compile>
     <Compile Include="Imagen.cs" />
     <Compile Include="Juego.cs">
       <SubType>Form</SubType>
@@ -133,9 +130,6 @@
     <Compile Include="Usuarios.Designer.cs">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Preguntas.resx">
-      <DependentUpon>Preguntas.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Juego.resx">
       <DependentUpon>Juego.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,7 +146,6 @@
     <EmbeddedResource Include="Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Adivinancitas_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -181,19 +174,45 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Img\Diego.png" />
-    <Content Include="Img\Gatos.png" />
-    <Content Include="Img\Hamburguesa.png" />
-    <Content Include="Img\Hippo.png" />
-    <Content Include="Img\Limon.png" />
-    <Content Include="Img\Perro.png" />
-    <Content Include="Img\Rosa.png" />
-    <Content Include="Img\Roshi.png" />
-    <Content Include="Img\screamshots\adivinancitas.png" />
-    <Content Include="Img\screamshots\game.png" />
-    <Content Include="Img\screamshots\usuarios.png" />
-    <Content Include="Img\Stitch.png" />
-    <Content Include="Img\Verso.png" />
+    <Content Include="Img20\Diego.png" />
+    <Content Include="Img20\Gatos.png" />
+    <Content Include="Img20\Hamburguesa.png" />
+    <Content Include="Img20\Hippo.png" />
+    <Content Include="Img20\Limon.png" />
+    <Content Include="Img20\PelotaBasquet.jpg" />
+    <Content Include="Img20\Perro.png" />
+    <Content Include="Img20\Rosa.png" />
+    <Content Include="Img20\Roshi.png" />
+    <Content Include="Img20\screamshots\adivinancitas.png" />
+    <Content Include="Img20\screamshots\game.png" />
+    <Content Include="Img20\screamshots\usuarios.png" />
+    <Content Include="Img20\Stitch.png" />
+    <Content Include="Img20\Verso.png" />
+    <Content Include="img40\Bebe.jpg" />
+    <Content Include="img40\BooMonsterinc.jpg" />
+    <Content Include="img40\CarasDePapas.png" />
+    <Content Include="img40\Cars.jpg" />
+    <Content Include="img40\Chimuela.jpg" />
+    <Content Include="img40\Dori.jpg" />
+    <Content Include="img40\El bichito.jpeg" />
+    <Content Include="img40\ElBurro.jpg" />
+    <Content Include="img40\Garfiel.jpg" />
+    <Content Include="img40\Home.jpg" />
+    <Content Include="img40\Jack.jpg" />
+    <Content Include="img40\LaPolitzia.png" />
+    <Content Include="img40\LisaPunk.jpg" />
+    <Content Include="img40\Ola.png" />
+    <Content Include="img40\Pajaritos.jpg" />
+    <Content Include="img40\Pez.jpg" />
+    <Content Include="img40\Pinguinito.jpg" />
+    <Content Include="img40\Pollitos.jpg" />
+    <Content Include="img40\Pollo.png" />
+    <Content Include="img40\RatatuilleCheff.jpg" />
+    <Content Include="img40\Red.jpg" />
+    <Content Include="img40\Stich.jpg" />
+    <Content Include="img40\Stuart.jpg" />
+    <Content Include="img40\Tristeza.jpg" />
+    <Content Include="img40\Troll.jpg" />
     <None Include="Resources\Gatos.png" />
     <None Include="Resources\Stitch.png" />
     <None Include="Resources\Diego.png" />

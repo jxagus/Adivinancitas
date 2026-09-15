@@ -37,7 +37,7 @@ namespace Adivinancitas
             this.tbPlayer2 = new System.Windows.Forms.TextBox();
             this.lblPlayer2 = new System.Windows.Forms.Label();
             this.pbUsuario = new System.Windows.Forms.PictureBox();
-            this.cb30 = new System.Windows.Forms.CheckBox();
+            this.cb40 = new System.Windows.Forms.CheckBox();
             this.lblRed = new System.Windows.Forms.Label();
             this.lblRed2 = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
@@ -106,15 +106,15 @@ namespace Adivinancitas
             this.pbUsuario.TabStop = false;
             this.pbUsuario.Click += new System.EventHandler(this.pbUsuario_Click);
             // 
-            // cb30
+            // cb40
             // 
-            this.cb30.AutoSize = true;
-            this.cb30.Location = new System.Drawing.Point(16, 129);
-            this.cb30.Name = "cb30";
-            this.cb30.Size = new System.Drawing.Size(120, 17);
-            this.cb30.TabIndex = 8;
-            this.cb30.Text = "Jugar con 30 cartas";
-            this.cb30.UseVisualStyleBackColor = true;
+            this.cb40.AutoSize = true;
+            this.cb40.Location = new System.Drawing.Point(16, 129);
+            this.cb40.Name = "cb40";
+            this.cb40.Size = new System.Drawing.Size(120, 17);
+            this.cb40.TabIndex = 8;
+            this.cb40.Text = "Jugar con 40 cartas";
+            this.cb40.UseVisualStyleBackColor = true;
             // 
             // lblRed
             // 
@@ -155,7 +155,7 @@ namespace Adivinancitas
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.lblRed2);
             this.Controls.Add(this.lblRed);
-            this.Controls.Add(this.cb30);
+            this.Controls.Add(this.cb40);
             this.Controls.Add(this.pbUsuario);
             this.Controls.Add(this.tbPlayer2);
             this.Controls.Add(this.lblPlayer2);
@@ -187,7 +187,7 @@ namespace Adivinancitas
         private System.Windows.Forms.TextBox tbPlayer2;
         private System.Windows.Forms.Label lblPlayer2;
         private System.Windows.Forms.PictureBox pbUsuario;
-        private System.Windows.Forms.CheckBox cb30;
+        private System.Windows.Forms.CheckBox cb40;
         private System.Windows.Forms.Label lblRed;
         private System.Windows.Forms.Label lblRed2;
         private System.Windows.Forms.Button btnCerrar;
