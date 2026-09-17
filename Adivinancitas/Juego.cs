@@ -23,6 +23,7 @@ namespace Adivinancitas
         public Juego(string tbPlayerUno, string tbPlayer2, bool usar40Cartas)
         {
             InitializeComponent();
+
             timerVolteo.Interval = 1000;
             timerVolteo.Tick += TimerVolteo_Tick;
 
@@ -187,11 +188,22 @@ namespace Adivinancitas
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
+
             if (result == DialogResult.Yes)
             {
+                foreach (Form form in Application.OpenForms)
+                {
+                    if (form is Usuarios)
+                    {
+                        form.Show();
+                        this.Close();
+                        return;
+                    }
+                }
+
                 Usuarios ventanUsuarios = new Usuarios();
                 ventanUsuarios.Show();
-                this.Hide();
+                this.Close();
             }
             else
             {

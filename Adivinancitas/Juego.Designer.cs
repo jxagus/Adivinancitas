@@ -43,14 +43,15 @@ namespace Adivinancitas
             // 
             // PanelJuego
             // 
-            this.PanelJuego.Location = new System.Drawing.Point(57, 65);
+            this.PanelJuego.Dock = System.Windows.Forms.DockStyle.Left;
+            this.PanelJuego.Location = new System.Drawing.Point(0, 0);
             this.PanelJuego.Name = "PanelJuego";
-            this.PanelJuego.Size = new System.Drawing.Size(484, 311);
+            this.PanelJuego.Size = new System.Drawing.Size(1086, 811);
             this.PanelJuego.TabIndex = 0;
             // 
             // btnReinicio
             // 
-            this.btnReinicio.Location = new System.Drawing.Point(610, 353);
+            this.btnReinicio.Location = new System.Drawing.Point(1151, 526);
             this.btnReinicio.Name = "btnReinicio";
             this.btnReinicio.Size = new System.Drawing.Size(139, 23);
             this.btnReinicio.TabIndex = 1;
@@ -61,7 +62,7 @@ namespace Adivinancitas
             // lblRecord
             // 
             this.lblRecord.AutoSize = true;
-            this.lblRecord.Location = new System.Drawing.Point(608, 239);
+            this.lblRecord.Location = new System.Drawing.Point(1148, 381);
             this.lblRecord.Name = "lblRecord";
             this.lblRecord.Size = new System.Drawing.Size(42, 13);
             this.lblRecord.TabIndex = 2;
@@ -71,7 +72,7 @@ namespace Adivinancitas
             // lblJugadorUno
             // 
             this.lblJugadorUno.AutoSize = true;
-            this.lblJugadorUno.Location = new System.Drawing.Point(596, 93);
+            this.lblJugadorUno.Location = new System.Drawing.Point(1136, 105);
             this.lblJugadorUno.Name = "lblJugadorUno";
             this.lblJugadorUno.Size = new System.Drawing.Size(54, 13);
             this.lblJugadorUno.TabIndex = 3;
@@ -80,7 +81,7 @@ namespace Adivinancitas
             // lblJugadorDos
             // 
             this.lblJugadorDos.AutoSize = true;
-            this.lblJugadorDos.Location = new System.Drawing.Point(596, 123);
+            this.lblJugadorDos.Location = new System.Drawing.Point(1136, 160);
             this.lblJugadorDos.Name = "lblJugadorDos";
             this.lblJugadorDos.Size = new System.Drawing.Size(54, 13);
             this.lblJugadorDos.TabIndex = 4;
@@ -89,7 +90,7 @@ namespace Adivinancitas
             // lblTurno
             // 
             this.lblTurno.AutoSize = true;
-            this.lblTurno.Location = new System.Drawing.Point(594, 53);
+            this.lblTurno.Location = new System.Drawing.Point(1134, 65);
             this.lblTurno.Name = "lblTurno";
             this.lblTurno.Size = new System.Drawing.Size(81, 13);
             this.lblTurno.TabIndex = 5;
@@ -99,7 +100,7 @@ namespace Adivinancitas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1384, 811);
             this.Controls.Add(this.lblTurno);
             this.Controls.Add(this.lblJugadorDos);
             this.Controls.Add(this.lblJugadorUno);

@@ -32,15 +32,15 @@ namespace Adivinancitas
         {
             this.btnAceptar = new System.Windows.Forms.Button();
             this.lblPlayerUno = new System.Windows.Forms.Label();
-            this.cb20 = new System.Windows.Forms.CheckBox();
             this.tbPlayerUno = new System.Windows.Forms.TextBox();
             this.tbPlayer2 = new System.Windows.Forms.TextBox();
             this.lblPlayer2 = new System.Windows.Forms.Label();
             this.pbUsuario = new System.Windows.Forms.PictureBox();
-            this.cb40 = new System.Windows.Forms.CheckBox();
             this.lblRed = new System.Windows.Forms.Label();
             this.lblRed2 = new System.Windows.Forms.Label();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.radioButton20 = new System.Windows.Forms.RadioButton();
+            this.radioButton40 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,16 +62,6 @@ namespace Adivinancitas
             this.lblPlayerUno.Size = new System.Drawing.Size(48, 13);
             this.lblPlayerUno.TabIndex = 2;
             this.lblPlayerUno.Text = "Player 1:";
-            // 
-            // cb20
-            // 
-            this.cb20.AutoSize = true;
-            this.cb20.Location = new System.Drawing.Point(16, 106);
-            this.cb20.Name = "cb20";
-            this.cb20.Size = new System.Drawing.Size(120, 17);
-            this.cb20.TabIndex = 3;
-            this.cb20.Text = "Jugar con 20 cartas";
-            this.cb20.UseVisualStyleBackColor = true;
             // 
             // tbPlayerUno
             // 
@@ -106,16 +96,6 @@ namespace Adivinancitas
             this.pbUsuario.TabStop = false;
             this.pbUsuario.Click += new System.EventHandler(this.pbUsuario_Click);
             // 
-            // cb40
-            // 
-            this.cb40.AutoSize = true;
-            this.cb40.Location = new System.Drawing.Point(16, 129);
-            this.cb40.Name = "cb40";
-            this.cb40.Size = new System.Drawing.Size(120, 17);
-            this.cb40.TabIndex = 8;
-            this.cb40.Text = "Jugar con 40 cartas";
-            this.cb40.UseVisualStyleBackColor = true;
-            // 
             // lblRed
             // 
             this.lblRed.AutoSize = true;
@@ -146,26 +126,50 @@ namespace Adivinancitas
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // radioButton20
+            // 
+            this.radioButton20.AutoSize = true;
+            this.radioButton20.Location = new System.Drawing.Point(16, 127);
+            this.radioButton20.Name = "radioButton20";
+            this.radioButton20.Size = new System.Drawing.Size(119, 17);
+            this.radioButton20.TabIndex = 12;
+            this.radioButton20.TabStop = true;
+            this.radioButton20.Text = "Jugar con 20 cartas";
+            this.radioButton20.UseVisualStyleBackColor = true;
+            // 
+            // radioButton40
+            // 
+            this.radioButton40.AutoSize = true;
+            this.radioButton40.Location = new System.Drawing.Point(16, 150);
+            this.radioButton40.Name = "radioButton40";
+            this.radioButton40.Size = new System.Drawing.Size(119, 17);
+            this.radioButton40.TabIndex = 13;
+            this.radioButton40.TabStop = true;
+            this.radioButton40.Text = "Jugar con 50 cartas";
+            this.radioButton40.UseVisualStyleBackColor = true;
+            this.radioButton40.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(348, 250);
+            this.Controls.Add(this.radioButton40);
+            this.Controls.Add(this.radioButton20);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.lblRed2);
             this.Controls.Add(this.lblRed);
-            this.Controls.Add(this.cb40);
             this.Controls.Add(this.pbUsuario);
             this.Controls.Add(this.tbPlayer2);
             this.Controls.Add(this.lblPlayer2);
             this.Controls.Add(this.tbPlayerUno);
-            this.Controls.Add(this.cb20);
             this.Controls.Add(this.lblPlayerUno);
             this.Controls.Add(this.btnAceptar);
             this.Name = "Usuarios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Usuarios";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Usuarios_FormClosed);
             this.Load += new System.EventHandler(this.Usuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbUsuario)).EndInit();
             this.ResumeLayout(false);
@@ -182,14 +186,14 @@ namespace Adivinancitas
 
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label lblPlayerUno;
-        private System.Windows.Forms.CheckBox cb20;
         private System.Windows.Forms.TextBox tbPlayerUno;
         private System.Windows.Forms.TextBox tbPlayer2;
         private System.Windows.Forms.Label lblPlayer2;
         private System.Windows.Forms.PictureBox pbUsuario;
-        private System.Windows.Forms.CheckBox cb40;
         private System.Windows.Forms.Label lblRed;
         private System.Windows.Forms.Label lblRed2;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.RadioButton radioButton20;
+        private System.Windows.Forms.RadioButton radioButton40;
     }
 }

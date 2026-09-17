@@ -58,19 +58,18 @@ namespace Adivinancitas
                     lblRed2.Visible = true;
                     MessageBox.Show("El campo de texto no puede estar vacío.");
                 }
-                if (!cb40.Checked && !cb20.Checked)
+                if (!radioButton40.Checked && !radioButton20.Checked)
                 {
                     MessageBox.Show("Elija una opcion, 20 o 40 cartas?.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(tbPlayerUno.Text) && !string.IsNullOrWhiteSpace(tbPlayer2.Text))
                 {
-                    if (cb20.Checked || cb40.Checked)
+                    if (radioButton20.Checked || radioButton40.Checked)
                     {
                         NombreJugador1 = tbPlayerUno.Text;
                         NombreJugador2 = tbPlayer2.Text;
-                        Usa40Cartas = cb40.Checked;
-
+                        Usa40Cartas = radioButton40.Checked;
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -86,6 +85,21 @@ namespace Adivinancitas
         {
             Application.Exit();
 
+        }
+
+        private void cb40_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Usuarios_FormClosed(object sender, FormClosedEventArgs e)
+        {
+           // Application.Exit();
         }
     }
 }
