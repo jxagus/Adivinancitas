@@ -126,6 +126,8 @@ namespace Adivinancitas
             Movimientos++;
             lblRecord.Text = Movimientos.ToString();
 
+            ActualizarEfectoVisualCartasDescubiertas();
+
             string nombreRecurso = CartaSeleccionada.Tag.ToString();
             Bitmap imagenCarta = RecuperarImagen(nombreRecurso);
 
@@ -144,12 +146,17 @@ namespace Adivinancitas
             }
         }
 
+        private Image ObtenerVerso()
+        {
+            return Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "Verso.png"));
+        }
+
         private void TimerVolteo_Tick(object sender, EventArgs e)
         {
             if (CartaTemporal1 != null && CartaTemporal2 != null)
             {
-                if (CartaTemporal1.Enabled) CartaTemporal1.Image = Properties.Resources.Verso;
-                if (CartaTemporal2.Enabled) CartaTemporal2.Image = Properties.Resources.Verso;
+                if (CartaTemporal1.Enabled) CartaTemporal1.Image = ObtenerVerso();
+                if (CartaTemporal2.Enabled) CartaTemporal2.Image = ObtenerVerso();
             }
 
             CartasSeleccionadas.Clear();
@@ -171,12 +178,26 @@ namespace Adivinancitas
                 if (File.Exists(rutaJpg)) return new Bitmap(rutaJpg);
                 if (File.Exists(rutaJpeg)) return new Bitmap(rutaJpeg);
 
-                return Properties.Resources.Verso;
+                return new Bitmap(ObtenerVerso());
             }
             else
             {
                 object obj = Properties.Resources.ResourceManager.GetObject(nombreRecurso);
-                return obj as Bitmap ?? Properties.Resources.Verso;
+
+                if (obj == null)
+                {
+                    var recursoEncontrado = Properties.Resources.ResourceManager
+                        .GetResourceSet(System.Globalization.CultureInfo.CurrentUICulture, true, true)
+                        .Cast<System.Collections.DictionaryEntry>()
+                        .FirstOrDefault(x => string.Equals(x.Key.ToString(), nombreRecurso, StringComparison.OrdinalIgnoreCase));
+
+                    if (recursoEncontrado.Value != null)
+                    {
+                        obj = recursoEncontrado.Value;
+                    }
+                }
+
+                return obj as Bitmap ?? new Bitmap(ObtenerVerso());
             }
         }
 
@@ -243,18 +264,15 @@ namespace Adivinancitas
                 var archivos = extensiones.SelectMany(ext => Directory.GetFiles(rutaImg40, ext)).ToArray();
 
                 nombresCartas = archivos.Select(Path.GetFileNameWithoutExtension).ToList();
-                // Toma todas las imágenes de la carpeta (las 25) sin cortarlas en 40
-                columnas = 10; // 10 columnas x 5 filas = 50 cartas en total
+                columnas = 10; 
             }
             else
             {
-                // 10 nombres distintos para formar exactamente 20 cartas (10 pares)
                 nombresCartas = new List<string>
-        {"Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Extra"};
-                columnas = 5; // 5 columnas x 4 filas = 20 cartas
+        { "Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Pelotabasquet" };
+                columnas = 5; 
             }
 
-            // Duplicamos cada nombre para crear las parejas
             foreach (var nombre in nombresCartas)
             {
                 listaCartas.Add(nombre);
@@ -286,7 +304,7 @@ namespace Adivinancitas
                     Name = "Carta_" + i,
                     Dock = DockStyle.Fill,
                     SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = Properties.Resources.Verso,
+                    Image = Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "Verso.png")),
                     Cursor = Cursors.Hand,
                     Tag = cartasRevueltas[i],
                     Enabled = true
@@ -300,6 +318,75 @@ namespace Adivinancitas
             }
 
             PanelJuego.Controls.Add(tablePanel);
+        }
+        private Image AplicarEfectoVisual(Image imagenOriginal, float factorOscuridad, float opacidad)
+        {
+            Bitmap bitmapEfecto = new Bitmap(imagenOriginal.Width, imagenOriginal.Height);
+            using (Graphics g = Graphics.FromImage(bitmapEfecto))
+            {
+                // Dibujamos la imagen con la opacidad deseada (matriz de color)
+                System.Drawing.Imaging.ColorMatrix colorMatrix = new System.Drawing.Imaging.ColorMatrix();
+                colorMatrix.Matrix33 = opacidad; // Controla la transparencia (0.0f = invisible, 1.0f = visible)
+
+                System.Drawing.Imaging.ImageAttributes imgAttributes = new System.Drawing.Imaging.ImageAttributes();
+                imgAttributes.SetColorMatrix(colorMatrix, System.Drawing.Imaging.ColorMatrixFlag.Default, System.Drawing.Imaging.ColorAdjustType.Bitmap);
+
+                g.DrawImage(imagenOriginal, new Rectangle(0, 0, bitmapEfecto.Width, bitmapEfecto.Height),
+                    0, 0, imagenOriginal.Width, imagenOriginal.Height, GraphicsUnit.Pixel, imgAttributes);
+
+                // Si hay que oscurecerla además de transparentarla
+                if (factorOscuridad > 0f)
+                {
+                    using (Brush brush = new SolidBrush(Color.FromArgb((int)(factorOscuridad * 255), Color.Black)))
+                    {
+                        g.FillRectangle(brush, 0, 0, bitmapEfecto.Width, bitmapEfecto.Height);
+                    }
+                }
+            }
+            return bitmapEfecto;
+        }
+
+        private void ActualizarEfectoVisualCartasDescubiertas()
+        {
+            TableLayoutPanel tablePanel = PanelJuego.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+            if (tablePanel == null) return;
+
+            foreach (Control control in tablePanel.Controls)
+            {
+                if (control is PictureBox carta && !carta.Enabled) // Solo cartas ya descubiertas/bloqueadas
+                {
+                    
+                    if (carta.Tag is string nombreRecurso)
+                    {
+                        // Obtenemos la imagen limpia original de esa carta
+                        Image imgOriginal = RecuperarImagen(nombreRecurso);
+
+                        if (Movimientos >= 200)
+                        {
+                            // 200+: Totalmente invisibles (ocultas o transparentes al 100%)
+                            carta.Visible = false; // O puedes usar opacidad 0 si prefieres que dejen el espacio en blanco: carta.Image = AplicarEfectoVisual(imgOriginal, 0f, 0f);
+                        }
+                        else if (Movimientos >= 120)
+                        {
+                            carta.Visible = true;
+                            // 120 a 199: Oscuras y con degradado/desvanecimiento (ej. 50% de opacidad y tono oscuro)
+                            carta.Image = AplicarEfectoVisual(imgOriginal, 0.4f, 0.5f);
+                        }
+                        else if (Movimientos >= 60)
+                        {
+                            carta.Visible = true;
+                            // 60 a 119: Oscuras levemente
+                            carta.Image = AplicarEfectoVisual(imgOriginal, 0.25f, 0.9f);
+                        }
+                        else
+                        {
+                            carta.Visible = true;
+                            // Menos de 60: Normales
+                            carta.Image = imgOriginal;
+                        }
+                    }
+                }
+            }
         }
         private void lblRecord_Click(object sender, EventArgs e)
         {

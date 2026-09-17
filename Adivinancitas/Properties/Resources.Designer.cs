@@ -63,6 +63,16 @@ namespace Adivinancitas.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Basquet {
+            get {
+                object obj = ResourceManager.GetObject("Basquet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Diego {
             get {
                 object obj = ResourceManager.GetObject("Diego", resourceCulture);
@@ -113,16 +123,6 @@ namespace Adivinancitas.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PelotaBasquet {
-            get {
-                object obj = ResourceManager.GetObject("PelotaBasquet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Perro {
             get {
                 object obj = ResourceManager.GetObject("Perro", resourceCulture);
@@ -156,16 +156,6 @@ namespace Adivinancitas.Properties {
         internal static System.Drawing.Bitmap Stitch {
             get {
                 object obj = ResourceManager.GetObject("Stitch", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Verso {
-            get {
-                object obj = ResourceManager.GetObject("Verso", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -124,6 +124,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,14 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,7 +156,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\Yoda.webp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -174,12 +173,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Img20\Basquet.png" />
     <Content Include="Img20\Diego.png" />
     <Content Include="Img20\Gatos.png" />
     <Content Include="Img20\Hamburguesa.png" />
     <Content Include="Img20\Hippo.png" />
     <Content Include="Img20\Limon.png" />
-    <Content Include="Img20\PelotaBasquet.jpg" />
     <Content Include="Img20\Perro.png" />
     <Content Include="Img20\Rosa.png" />
     <Content Include="Img20\Roshi.png" />
@@ -187,7 +186,6 @@
     <Content Include="Img20\screamshots\game.png" />
     <Content Include="Img20\screamshots\usuarios.png" />
     <Content Include="Img20\Stitch.png" />
-    <Content Include="Img20\Verso.png" />
     <Content Include="img40\Bebe.jpg" />
     <Content Include="img40\BooMonsterinc.jpg" />
     <Content Include="img40\CarasDePapas.png" />
@@ -213,16 +211,9 @@
     <Content Include="img40\Stuart.jpg" />
     <Content Include="img40\Tristeza.jpg" />
     <Content Include="img40\Troll.jpg" />
-    <None Include="Resources\Gatos.png" />
-    <None Include="Resources\Stitch.png" />
-    <None Include="Resources\Diego.png" />
-    <None Include="Resources\Rosa.png" />
-    <None Include="Resources\Perro.png" />
-    <None Include="Resources\Limon.png" />
-    <None Include="Resources\Hippo.png" />
-    <None Include="Resources\Hamburguesa.png" />
-    <None Include="Resources\Roshi.png" />
-    <None Include="Resources\Verso.png" />
+    <None Include="Resources\Verso.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

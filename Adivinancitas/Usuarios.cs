@@ -32,7 +32,7 @@ namespace Adivinancitas
         {
             lblRed.Visible = false;
             lblRed2.Visible = false;
-            pbUsuario.Image = Image.FromFile("C:/Users/agust/source/repos/Adivinancitas/Adivinancitas/Img20/Verso.png");
+            pbUsuario.Image = Image.FromFile("C:/Users/agust/source/repos/Adivinancitas/Adivinancitas/Resources/Verso.png");
             try
             {
 
