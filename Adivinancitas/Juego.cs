@@ -18,6 +18,7 @@ namespace Adivinancitas
         PictureBox CartaTemporal1, CartaTemporal2;
         Timer timerVolteo = new Timer();
 
+
         private bool modo40Cartas;
 
         public Juego(string tbPlayerUno, string tbPlayer2, bool usar40Cartas)
@@ -26,10 +27,10 @@ namespace Adivinancitas
 
             timerVolteo.Interval = 1000;
             timerVolteo.Tick += TimerVolteo_Tick;
-
             jugador1 = tbPlayerUno;
             jugador2 = tbPlayer2;
             modo40Cartas = usar40Cartas;
+            lblRecord.Text = "Movimientos: ";
 
             lblJugadorUno.Text = jugador1 + ": 0 pts";
             lblJugadorDos.Text = jugador2 + ": 0 pts";
@@ -124,7 +125,7 @@ namespace Adivinancitas
             if (!CartaSeleccionada.Enabled || CartasSeleccionadas.Contains(CartaSeleccionada)) return;
 
             Movimientos++;
-            lblRecord.Text = Movimientos.ToString();
+            lblRecord.Text = "Movimientos: " + Movimientos.ToString();
 
             ActualizarEfectoVisualCartasDescubiertas();
 
@@ -239,7 +240,7 @@ namespace Adivinancitas
 
         public void iniciarJuego()
         {
-            lblRecord.Text = "0";
+            lblRecord.Text = "Movimientos: 0";
             Movimientos = 0;
             puntajeJugador1 = 0;
             puntajeJugador2 = 0;
@@ -256,6 +257,18 @@ namespace Adivinancitas
             List<string> nombresCartas;
 
             int columnas;
+            if (Movimientos >= 200)
+            {
+                MessageBox.Show("¡Has superado los 200 movimientos! Las cartas descubiertas se volverán invisibles.");
+            }
+            else if (Movimientos >= 120)
+            {
+                MessageBox.Show("¡Has superado los 120 movimientos! Las cartas descubiertas se verán oscuras y con degradado.");
+            }
+            else if (Movimientos >= 60)
+            {
+                MessageBox.Show("¡Has superado los 60 movimientos! Las cartas descubiertas se verán levemente oscuras.");
+            }
 
             if (modo40Cartas)
             {
@@ -269,7 +282,7 @@ namespace Adivinancitas
             else
             {
                 nombresCartas = new List<string>
-        { "Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Pelotabasquet" };
+             { "Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Basquet" };
                 columnas = 5; 
             }
 
