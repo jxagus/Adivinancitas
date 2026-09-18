@@ -40,15 +40,29 @@ namespace Adivinancitas
         {
             if (CartaTemporal1.Tag.ToString() == CartaTemporal2.Tag.ToString())
             {
+                string nombreCartaAcertada = CartaTemporal1.Tag.ToString();
+
+                // Creamos la miniatura visual de la carta descubierta
+                PictureBox miniaturaCarta = new PictureBox
+                {
+                    Size = new Size(33, 33), // Tamaño optimizado de la miniatura
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Margin = new Padding(2), // Margen pequeño y controlado para que entren 5 exactas
+                    Image = RecuperarImagen(nombreCartaAcertada)
+                };
+
+                // Sumamos puntos y agregamos la miniatura al panel correspondiente sin límite
                 if (turnoJugador == 1)
                 {
                     puntajeJugador1 += 10;
                     lblJugadorUno.Text = jugador1 + ": " + puntajeJugador1 + " pts";
+                    flpJugador1.Controls.Add(miniaturaCarta); // Se agrega siempre
                 }
                 else
                 {
                     puntajeJugador2 += 10;
                     lblJugadorDos.Text = jugador2 + ": " + puntajeJugador2 + " pts";
+                    flpJugador2.Controls.Add(miniaturaCarta); // Se agrega siempre
                 }
 
                 CartaTemporal1.Enabled = false;
@@ -127,7 +141,8 @@ namespace Adivinancitas
             Movimientos++;
             lblRecord.Text = "Movimientos: " + Movimientos.ToString();
 
-            ActualizarEfectoVisualCartasDescubiertas();
+            //ActualizarEfectoVisualCartasDescubiertas();
+            EfectoVisualCartasDescubiertas();
 
             string nombreRecurso = CartaSeleccionada.Tag.ToString();
             Bitmap imagenCarta = RecuperarImagen(nombreRecurso);
@@ -145,8 +160,9 @@ namespace Adivinancitas
 
                 VerificarPareja();
             }
+            
         }
-
+        
         private Image ObtenerVerso()
         {
             return Image.FromFile(Path.Combine(Application.StartupPath, "Resources", "Verso.png"));
@@ -230,6 +246,7 @@ namespace Adivinancitas
         {
             lblRecord.Text = "Movimientos: 0";
             Movimientos = 0;
+            lblMensajeDinamico.Text = "";
             puntajeJugador1 = 0;
             puntajeJugador2 = 0;
             lblJugadorUno.Text = jugador1 + ": 0 pts";
@@ -238,25 +255,15 @@ namespace Adivinancitas
             turnoJugador = 1;
             ActualizarTurno();
 
+            flpJugador1.Controls.Clear();
+            flpJugador2.Controls.Clear();
             PanelJuego.Controls.Clear();
             CartasSeleccionadas.Clear();
 
             listaCartas = new List<string>();
             List<string> nombresCartas;
-
             int columnas;
-            if (Movimientos >= 200)
-            {
-                MessageBox.Show("¡Has superado los 200 movimientos! Las cartas descubiertas se volverán invisibles.");
-            }
-            else if (Movimientos >= 120)
-            {
-                MessageBox.Show("¡Has superado los 120 movimientos! Las cartas descubiertas se verán oscuras y con degradado.");
-            }
-            else if (Movimientos >= 60)
-            {
-                MessageBox.Show("¡Has superado los 60 movimientos! Las cartas descubiertas se verán levemente oscuras.");
-            }
+            
 
             if (modo40Cartas)
             {
@@ -389,8 +396,93 @@ namespace Adivinancitas
                 }
             }
         }
+        private void EfectoVisualCartasDescubiertas()
+        {
+            TableLayoutPanel tablePanel = PanelJuego.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+            if (tablePanel == null) return;
+
+            foreach (Control control in tablePanel.Controls)
+            {
+                if (control is PictureBox carta && !carta.Enabled) // Solo cartas ya descubiertas/bloqueadas
+                {
+
+                    if (carta.Tag is string nombreRecurso)
+                    {
+                        // Obtenemos la imagen limpia original de esa carta
+                        Image imgOriginal = RecuperarImagen(nombreRecurso);
+
+                        if (Movimientos >= 2)
+                        {
+                            // 200+: Totalmente invisibles (ocultas o transparentes al 100%)
+                            carta.Visible = false; // O puedes usar opacidad 0 si prefieres que dejen el espacio en blanco: carta.Image = AplicarEfectoVisual(imgOriginal, 0f, 0f);
+                        }
+                        
+                        else
+                        {
+                            carta.Visible = true;
+                            // Menos de 60: Normales
+                            carta.Image = imgOriginal;
+                        }
+                    }
+                }
+            }
+        }
         private void lblRecord_Click(object sender, EventArgs e)
         {
+        }
+        private void modoDificil_CheckedChanged(object sender, EventArgs e)
+        {/*
+            if (modoDificil.Checked)
+            {
+                MessageBox.Show("Modo difícil activado: Las cartas se oscurecerán y desaparecerán con más movimientos.");
+                //Dificil
+                if (Movimientos >= 200)
+                {
+                    lblMensajeDinamico.ForeColor = Color.DarkRed;
+                    lblMensajeDinamico.Text = "⚠️ ¡Nivel extremo! Las cartas comienzan a desvanecerse...";
+                }
+                else if (Movimientos >= 120)
+                {
+                    lblMensajeDinamico.ForeColor = Color.Purple;
+                    lblMensajeDinamico.Text = "🌙 ¡Cuidado! Las cartas se ven oscuras y misteriosas.";
+                }
+                else if (Movimientos >= 60)
+                {
+                    lblMensajeDinamico.ForeColor = Color.DarkOrange;
+                    lblMensajeDinamico.Text = "💡 ¡Atención! Las cartas pierden claridad.";
+                }
+                else
+                {
+                    lblMensajeDinamico.Text = "";
+                }
+            }*/
+        }
+        private void modoFacil_CheckedChanged(object sender, EventArgs e)
+        {
+            /*if (modoFacil.Checked)
+            {
+                MessageBox.Show("Modo fácil activado: Las cartas permanecerán visibles durante más movimientos.");
+                //Facilidad
+                if (Movimientos >= 200)
+                {
+                    lblMensajeDinamico.ForeColor = Color.DarkRed;
+                    lblMensajeDinamico.Text = "⚠️ ¡Nivel extremo! Las cartas comienzan a desvanecerse...";
+                }
+                else if (Movimientos >= 120)
+                {
+                    lblMensajeDinamico.ForeColor = Color.Purple;
+                    lblMensajeDinamico.Text = "🌙 ¡Cuidado! Las cartas se ven oscuras y misteriosas.";
+                }
+                else if (Movimientos >= 60)
+                {
+                    lblMensajeDinamico.ForeColor = Color.DarkOrange;
+                    lblMensajeDinamico.Text = "💡 ¡Atención! Las cartas pierden claridad.";
+                }
+                else
+                {
+                    lblMensajeDinamico.Text = "";
+                }
+            }*/
         }
     }
 }

@@ -39,6 +39,9 @@ namespace Adivinancitas
             this.lblJugadorUno = new System.Windows.Forms.Label();
             this.lblJugadorDos = new System.Windows.Forms.Label();
             this.lblTurno = new System.Windows.Forms.Label();
+            this.lblMensajeDinamico = new System.Windows.Forms.Label();
+            this.flpJugador1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpJugador2 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // PanelJuego
@@ -51,9 +54,9 @@ namespace Adivinancitas
             // 
             // btnReinicio
             // 
-            this.btnReinicio.Location = new System.Drawing.Point(1151, 526);
+            this.btnReinicio.Location = new System.Drawing.Point(1151, 720);
             this.btnReinicio.Name = "btnReinicio";
-            this.btnReinicio.Size = new System.Drawing.Size(139, 23);
+            this.btnReinicio.Size = new System.Drawing.Size(144, 37);
             this.btnReinicio.TabIndex = 1;
             this.btnReinicio.Text = "Reinicio del Juego";
             this.btnReinicio.UseVisualStyleBackColor = true;
@@ -62,7 +65,7 @@ namespace Adivinancitas
             // lblRecord
             // 
             this.lblRecord.AutoSize = true;
-            this.lblRecord.Location = new System.Drawing.Point(1148, 381);
+            this.lblRecord.Location = new System.Drawing.Point(1136, 674);
             this.lblRecord.Name = "lblRecord";
             this.lblRecord.Size = new System.Drawing.Size(42, 13);
             this.lblRecord.TabIndex = 2;
@@ -72,41 +75,72 @@ namespace Adivinancitas
             // lblJugadorUno
             // 
             this.lblJugadorUno.AutoSize = true;
-            this.lblJugadorUno.Location = new System.Drawing.Point(1136, 105);
+            this.lblJugadorUno.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJugadorUno.Location = new System.Drawing.Point(1136, 92);
             this.lblJugadorUno.Name = "lblJugadorUno";
-            this.lblJugadorUno.Size = new System.Drawing.Size(54, 13);
+            this.lblJugadorUno.Size = new System.Drawing.Size(86, 23);
             this.lblJugadorUno.TabIndex = 3;
             this.lblJugadorUno.Text = "Jugador 1";
             // 
             // lblJugadorDos
             // 
             this.lblJugadorDos.AutoSize = true;
-            this.lblJugadorDos.Location = new System.Drawing.Point(1136, 160);
+            this.lblJugadorDos.Font = new System.Drawing.Font("Candara", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJugadorDos.Location = new System.Drawing.Point(1136, 311);
             this.lblJugadorDos.Name = "lblJugadorDos";
-            this.lblJugadorDos.Size = new System.Drawing.Size(54, 13);
+            this.lblJugadorDos.Size = new System.Drawing.Size(88, 23);
             this.lblJugadorDos.TabIndex = 4;
             this.lblJugadorDos.Text = "Jugador 2";
             // 
             // lblTurno
             // 
             this.lblTurno.AutoSize = true;
-            this.lblTurno.Location = new System.Drawing.Point(1134, 65);
+            this.lblTurno.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTurno.Location = new System.Drawing.Point(1109, 21);
             this.lblTurno.Name = "lblTurno";
-            this.lblTurno.Size = new System.Drawing.Size(81, 13);
+            this.lblTurno.Size = new System.Drawing.Size(174, 25);
             this.lblTurno.TabIndex = 5;
             this.lblTurno.Text = "Turno de Spect";
+            // 
+            // lblMensajeDinamico
+            // 
+            this.lblMensajeDinamico.AutoSize = true;
+            this.lblMensajeDinamico.Location = new System.Drawing.Point(1148, 437);
+            this.lblMensajeDinamico.Name = "lblMensajeDinamico";
+            this.lblMensajeDinamico.Size = new System.Drawing.Size(10, 13);
+            this.lblMensajeDinamico.TabIndex = 6;
+            this.lblMensajeDinamico.Text = " ";
+            // 
+            // flpJugador1
+            // 
+            this.flpJugador1.Location = new System.Drawing.Point(1139, 124);
+            this.flpJugador1.Name = "flpJugador1";
+            this.flpJugador1.Size = new System.Drawing.Size(200, 150);
+            this.flpJugador1.TabIndex = 7;
+            // 
+            // flpJugador2
+            // 
+            this.flpJugador2.Location = new System.Drawing.Point(1139, 340);
+            this.flpJugador2.Name = "flpJugador2";
+            this.flpJugador2.Size = new System.Drawing.Size(200, 150);
+            this.flpJugador2.TabIndex = 8;
             // 
             // Juego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1384, 811);
+            this.Controls.Add(this.flpJugador2);
+            this.Controls.Add(this.flpJugador1);
+            this.Controls.Add(this.lblMensajeDinamico);
             this.Controls.Add(this.lblTurno);
             this.Controls.Add(this.lblJugadorDos);
             this.Controls.Add(this.lblJugadorUno);
             this.Controls.Add(this.lblRecord);
             this.Controls.Add(this.btnReinicio);
             this.Controls.Add(this.PanelJuego);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Juego";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Juego";
@@ -126,5 +160,8 @@ namespace Adivinancitas
         private Label lblJugadorUno;
         private Label lblJugadorDos;
         private Label lblTurno;
+        private Label lblMensajeDinamico;
+        private FlowLayoutPanel flpJugador1;
+        private FlowLayoutPanel flpJugador2;
     }
 }
