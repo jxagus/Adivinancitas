@@ -213,23 +213,11 @@ namespace Adivinancitas
 
             if (result == DialogResult.Yes)
             {
-                foreach (Form form in Application.OpenForms)
-                {
-                    if (form is Usuarios)
-                    {
-                        form.Show();
-                        this.Close();
-                        return;
-                    }
-                }
-
-                Usuarios ventanUsuarios = new Usuarios();
-                ventanUsuarios.Show();
                 this.Close();
             }
             else
             {
-                iniciarJuego();
+                //iniciarJuego();
             }
         }
 
@@ -282,7 +270,7 @@ namespace Adivinancitas
             else
             {
                 nombresCartas = new List<string>
-             { "Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Basquet" };
+                { "Diego", "Gatos", "Hamburguesa", "Hippo", "Limon", "Perro", "Rosa", "Roshi", "Stitch", "Basquet" };
                 columnas = 5; 
             }
 
